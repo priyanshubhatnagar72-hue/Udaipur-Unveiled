@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Udaipur Royal Guide | The City of Lakes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #800000;
+            --secondary-color: #2c2c2c;
+            --accent-color: #daa520;
+            --bg-color: #fffaf0;
+            --card-bg: #ffffff;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lora', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.7;
+            color: var(--secondary-color);
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#e0d0b0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        .navbar {
+            background: var(--primary-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { color: #fff; font-family: var(--font-heading); font-size: 1.1rem; }
+        .nav-links a:hover { color: var(--accent-color); }
+
+        /* --- HERO SECTION IMAGE SETTINGS --- */
+        .hero {
+            height: 85vh;
+            
+            /* 👇 IMAGE 1: MAIN BACKGROUND (HERO) 
+               Change the URL inside url('...') to change the big main background picture.
+               Currently: A view of Lake Pichola architecture.
+            */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(60, 20, 20, 0.6)), url('https://media.istockphoto.com/id/494468514/photo/lake-pichola-hotel-palace.jpg?s=612x612&w=0&k=20&c=dS1xrWGmYHQHY8ec2oPG7zqlaOhyqnEPK3cRVNpLYdo=');
+            
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+            border-bottom: 5px solid var(--accent-color);
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px #000;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            font-style: italic;
+            max-width: 700px;
+            margin-bottom: 35px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            background: transparent;
+            color: var(--accent-color);
+            font-family: var(--font-heading);
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: 2px solid var(--accent-color);
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover { background: var(--accent-color); color: var(--primary-color); }
+
+        section { padding: 70px 20px; max-width: 1200px; margin: 0 auto; }
+
+        .section-title {
+            text-align: center;
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            font-size: 2.8rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '♦';
+            display: block;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-top: 5px;
+        }
+
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--accent-color);
+            border-radius: 5px 5px 0 0; 
+        }
+
+        .card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(128, 0, 0, 0.15); }
+
+        .card-content {
+            padding: 25px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            color: var(--primary-color);
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .card-text { margin-bottom: 20px; flex-grow: 1; }
+
+        .know-more-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            border: 1px solid var(--accent-color);
+            border-radius: 3px;
+            align-self: center;
+        }
+
+        .know-more-btn:hover { background-color: var(--accent-color); color: var(--primary-color); }
+
+        .itinerary-box {
+            background: #fff;
+            border: 2px solid var(--accent-color);
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .itinerary-box::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid var(--primary-color);
+            pointer-events: none;
+        }
+
+        .day-header {
+            color: var(--primary-color);
+            font-family: var(--font-heading);
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: var(--accent-color);
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 5px solid var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } 
+            .navbar { justify-content: center; }
+            .places-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">⚜ Udaipur Unveiled ⚜</div>
+        <div class="nav-links">
+            <a href="#places">Attractions</a>
+            <a href="#itinerary">Royal Plan</a>
+            <a href="#food">Cuisine</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>The City of Lakes</h1>
+        <p>Experience the grandeur of Rajasthan's most romantic city.</p>
+        <a href="#places" class="btn">Explore Heritage</a>
+    </header>
+
+    <section id="places">
+        <h2 class="section-title">Royal Attractions</h2>
+        <div class="places-grid">
+            
+            <div class="card">
+                <img src="https://bhairavgarh.com/wp-content/uploads/2025/02/city-1024x683.png" alt="City Palace Complex">
+                <div class="card-content">
+                    <h3 class="card-title">City Palace</h3>
+                    <p class="card-text">The largest palace complex in Rajasthan, featuring towering cupolas, balconies, and a museum with royal artifacts.</p>
+                    
+                    <a href="https://en.wikipedia.org/wiki/City_Palace,_Udaipur" target="_blank" class="know-more-btn">Know More</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://t4.ftcdn.net/jpg/02/67/73/11/360_F_267731142_rcLPJbWo0ElehyDMIk206jKF8wfngNFO.jpg" alt="Sunset over Lake Pichola">
+                <div class="card-content">
+                    <h3 class="card-title">Lake Pichola</h3>
+                    <p class="card-text">One of the oldest and biggest lakes, famous for its sunset boat rides and views of the floating Lake Palace.</p>
+                    
+                    <a href="https://en.wikipedia.org/wiki/Lake_Pichola" target="_blank" class="know-more-btn">Know More</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://media-cdn.tripadvisor.com/media/photo-o/07/63/ed/7c/monsoon-palace.jpg" alt="Monsoon Palace on Hilltop">
+                <div class="card-content">
+                    <h3 class="card-title">Monsoon Palace</h3>
+                    <p class="card-text">Also known as Sajjangarh, this hilltop palace offers a panoramic bird's-eye view of the Udaipur valley and lakes.</p>
+                    
+                    <a href="https://en.wikipedia.org/wiki/Monsoon_Palace" target="_blank" class="know-more-btn">Know More</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://hblimg.mmtcdn.com/content/hubble/img/udaipur/mmt/activities/m_activities-udaipur-saheliyon-ki-bari_l_400_640.jpg" alt="Fountains at Saheliyon Ki Bari">
+                <div class="card-content">
+                    <h3 class="card-title">Saheliyon Ki Bari</h3>
+                    <p class="card-text">The "Garden of the Maidens," featuring lush lawns, marble art, and ancient fountains that operate without pumps.</p>
+                    
+                    <a href="https://en.wikipedia.org/wiki/Saheliyon-ki-Bari" target="_blank" class="know-more-btn">Know More</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://s7ap1.scene7.com/is/image/incredibleindia/1-bagore-ki-haveli-udaipur-rajasthan-attr-hero?qlt=82&ts=1742160043861" alt="Bagore Ki Haveli Courtyard">
+                <div class="card-content">
+                    <h3 class="card-title">Bagore Ki Haveli</h3>
+                    <p class="card-text">An 18th-century mansion right on the waterfront, famous for its evening 'Dharohar' folk dance and puppet shows.</p>
+                    
+                    <a href="https://en.wikipedia.org/wiki/Bagore_Ki_Haveli" target="_blank" class="know-more-btn">Know More</a>
+                </div>
+            </div>
+
+             <div class="card">
+                <img src="https://www.theleela.com/prod/content/assets/aio-banner/dekstop/Visit-to-Jag-Mandir-in-Udaipur.jpg?VersionId=RUeS1ZhvydDVeHOTYxOLaPW0E6dlWdRV" alt="Jag Mandir Island Palace">
+                <div class="card-content">
+                    <h3 class="card-title">Jag Mandir</h3>
+                    <p class="card-text">An exquisite island palace on Lake Pichola, built with yellow sandstone and marble, once a refuge for Shah Jahan.</p>
+                    
+                    <a href="https://en.wikipedia.org/wiki/Jag_Mandir" target="_blank" class="know-more-btn">Know More</a>
+                </div>
+            </div>
+
+             <div class="card">
+                <img src="https://www.connectingtraveller.com/images/localtip/1628616871unnamed.jpg" alt="Vintage Car Collection">
+                <div class="card-content">
+                    <h3 class="card-title">Vintage Car Museum</h3>
+                    <p class="card-text">A must-visit for car enthusiasts, showcasing the royal collection of Rolls Royces, Cadillacs, and other rare classics.</p>
+                    
+                    <a href="https://en.wikipedia.org/wiki/Vintage_and_Classic_Car_Museum" target="_blank" class="know-more-btn">Know More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="itinerary">
+        <h2 class="section-title">The Royal Itinerary</h2>
+        
+        <div class="itinerary-box">
+            <span class="day-header">Day 1: History & Heritage</span>
+            <p>Begin your day entering the <strong>City Palace</strong> through the Tripoliya Gate. Visit the nearby <strong>Jagdish Temple</strong>. Post lunch, explore the <strong>Vintage Car Museum</strong>. End your day with the cultural folk dance at <strong>Bagore Ki Haveli</strong> at Gangaur Ghat.</p>
+        </div>
+
+        <div class="itinerary-box">
+            <span class="day-header">Day 2: Nature & Tranquility</span>
+            <p>Morning walk at <strong>Saheliyon Ki Bari</strong>. Take a boat ride to <strong>Jag Mandir</strong> island. In the evening, drive up to the <strong>Monsoon Palace</strong> for the sunset, followed by a romantic dinner at Ambrai Ghat.</p>
+        </div>
+    </section>
+
+    <section id="food">
+        <h2 class="section-title">Mewari Cuisine</h2>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Rajasthan is known for its royal hospitality. No trip is complete without tasting a traditional <strong>Rajasthani Thali</strong>.</p>
+            
+            <div class="places-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <div class="card" style="background: #fffaf0; border: none; box-shadow: none;">
+                    <h3 class="card-title" style="border: none;">Dal Bati Churma</h3>
+                    <p>Hard wheat rolls, lentils, and sweet crumble.</p>
+                </div>
+                <div class="card" style="background: #fffaf0; border: none; box-shadow: none;">
+                    <h3 class="card-title" style="border: none;">Laal Maas</h3>
+                    <p>Spicy mutton curry cooked in yogurt and garlic.</p>
+                </div>
+                <div class="card" style="background: #fffaf0; border: none; box-shadow: none;">
+                    <h3 class="card-title" style="border: none;">Ghevar</h3>
+                    <p>A disc-shaped sweet made from ghee and flour.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h3>⚜ Udaipur Unveiled ⚜</h3>
+        <p>Managed by Udaipur Tourism. &copy; 2025.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
